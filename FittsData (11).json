@@ -1,0 +1,62 @@
+[
+  {
+    "iteration": 1,
+    "targetSize": 67.4776722508922,
+    "cursorDistance": 20.281828084816976,
+    "timeTaken": 991.5999999940395
+  },
+  {
+    "iteration": 2,
+    "targetSize": 71.38717095835378,
+    "cursorDistance": 25.84891205596685,
+    "timeTaken": 734.8000000119209
+  },
+  {
+    "iteration": 3,
+    "targetSize": 120.72595196418565,
+    "cursorDistance": 48.45085988710228,
+    "timeTaken": 562.4000000059605
+  },
+  {
+    "iteration": 4,
+    "targetSize": 81.91962537845245,
+    "cursorDistance": 37.43238755657166,
+    "timeTaken": 765.0999999940395
+  },
+  {
+    "iteration": 5,
+    "targetSize": 118.68381530637524,
+    "cursorDistance": 58.65598512717675,
+    "timeTaken": 478.5
+  },
+  {
+    "iteration": 6,
+    "targetSize": 110.26763459164252,
+    "cursorDistance": 25.93538649746053,
+    "timeTaken": 810.2999999821186
+  },
+  {
+    "iteration": 7,
+    "targetSize": 88.1332893657096,
+    "cursorDistance": 1.7629785196854995,
+    "timeTaken": 794.6999999880791
+  },
+  {
+    "iteration": 8,
+    "targetSize": 130.48663705006044,
+    "cursorDistance": 23.004773346780254,
+    "timeTaken": 637.3000000119209
+  },
+  {
+    "iteration": 9,
+    "targetSize": 60.01143938738265,
+    "cursorDistance": 7.827347177232004,
+    "timeTaken": 689.2000000178814
+  },
+  {
+    "iteration": 10,
+    "targetSize": 149.30968318297698,
+    "cursorDistance": 27.5461190505944,
+    "timeTaken": 516.9000000059605
+  }
+]
