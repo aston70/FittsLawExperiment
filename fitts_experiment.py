@@ -1,38 +1,46 @@
+import os
 import json
-import glob
-import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+from scipy import stats
 
-# Load all JSON files from the 'data' folder
-json_files = glob.glob("data/*.json")
+data_dir = r"E:\School Projects\COSC 559\FittsExperiment\data"
+files = [f for f in os.listdir(data_dir) if f.endswith(".json")]
 
-# Read data from all files and combine into a single DataFrame
-data_list = []
-for file in json_files:
-    with open(file, "r") as f:
-        data_list.extend(json.load(f))
+all_data = []
 
-df = pd.DataFrame(data_list)
+for file in files:
+    with open(os.path.join(data_dir, file), 'r') as f:
+        all_data.extend(json.load(f))
 
-# Create scatter plots
-sns.set(style="whitegrid")
+# Calculate Index of Difficulty (ID) and extract Movement Time (MT)
+IDs = [np.log2((d["cursorDistance"] / d["targetSize"]) + 1) for d in all_data]
+MTs = [d["timeTaken"] for d in all_data]
 
-plt.figure(figsize=(12, 5))
+# Perform linear regression (MT = a + b * ID)
+slope, intercept, r_value, _, _ = stats.linregress(IDs, MTs)
 
-# Cursor Distance vs Time Taken
-plt.subplot(1, 2, 1)
-sns.regplot(x=df["cursorDistance"], y=df["timeTaken"])
-plt.xlabel("Cursor Distance")
-plt.ylabel("Time Taken (ms)")
-plt.title("Cursor Distance vs Time Taken")
+# Generate regression line for visualization
+ID_range = np.linspace(min(IDs), max(IDs), 100)
+predicted_MT = intercept + slope * ID_range
 
-# Target Size vs Time Taken
-plt.subplot(1, 2, 2)
-sns.regplot(x=df["targetSize"], y=df["timeTaken"])
-plt.xlabel("Target Size")
-plt.ylabel("Time Taken (ms)")
-plt.title("Target Size vs Time Taken")
+# Plot the data points
+plt.scatter(IDs, MTs, color="blue", label="Data Points")
+plt.plot(ID_range, predicted_MT, color="red", label=f"Fit: MT={intercept:.2f} + {slope:.2f} * ID")
 
-plt.tight_layout()
+# Annotate 'a' and 'b' values
+plt.text(min(IDs), max(MTs) - (max(MTs) - min(MTs)) * 0.1, 
+         f"a = {intercept:.2f}\nb = {slope:.2f}", 
+         fontsize=12, color="black", bbox=dict(facecolor='white', alpha=0.6))
+
+# Labels and Titles
+plt.xlabel("Index of Difficulty (ID)")
+plt.ylabel("Movement Time (MT)")
+plt.title("Fitts' Law Experiment")
+plt.legend()
+plt.grid(True)
+
+# Show Plot
 plt.show()
+
+print(f"Slope (b): {slope}, Intercept (a): {intercept}, R²: {r_value**2}")
